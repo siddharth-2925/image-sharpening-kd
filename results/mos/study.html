@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Quality Study</title>
+  <style>
+    body { font: 16px system-ui, sans-serif; margin: 0 auto; max-width: 1380px; padding: 24px; color: #202124; }
+    h1 { margin-bottom: 8px; }
+    .intro { max-width: 850px; line-height: 1.5; }
+    .panel { border: 1px solid #ccc; border-radius: 12px; padding: 20px; margin: 20px 0; }
+    label { display: inline-block; margin: 7px 14px 7px 0; }
+    input[type="text"] { font: inherit; padding: 8px; width: 180px; }
+    #pair-image { display: block; width: 100%; max-width: 1280px; height: auto; }
+    .scores { display: flex; flex-wrap: wrap; gap: 32px; }
+    fieldset { border: 1px solid #bbb; border-radius: 8px; min-width: 250px; }
+    legend { font-weight: 700; }
+    button { font: inherit; padding: 10px 16px; margin-right: 10px; cursor: pointer; }
+    #message { font-weight: 600; min-height: 24px; }
+  </style>
+</head>
+<body>
+  <h1>Image Quality Study</h1>
+  <p class="intro">You will view 20 pairs of native-resolution image crops. For each pair, rate the visual quality and detail of <strong>A and B separately</strong> from 1 (very poor) to 5 (excellent). Look at sharpness, readable detail, and artifacts. If A and B look equally good, give them the same rating. You do not need to guess which method made each image. This takes about 10 minutes.</p>
+  <div class="panel">
+    <label for="participant">Participant ID (for example P01):</label>
+    <input id="participant" type="text" maxlength="32" autocomplete="off" placeholder="P01">
+    <p>Do not enter your name. Use a different ID for each participant.</p>
+  </div>
+  <div class="panel">
+    <h2 id="progress">Pair 1 of 20</h2>
+    <a id="image-link" href="pair_01.png" target="_blank" rel="noopener" title="Open full-size image">
+      <img id="pair-image" src="pair_01.png" alt="Comparison pair A and B">
+    </a>
+    <p>Click the image to inspect it at full size. A is on the left; B is on the right.</p>
+    <div class="scores">
+      <fieldset><legend>Quality of A</legend><div id="rating-a"></div></fieldset>
+      <fieldset><legend>Quality of B</legend><div id="rating-b"></div></fieldset>
+    </div>
+    <p id="message" role="status"></p>
+    <button id="previous" type="button">Previous</button>
+    <button id="next" type="button">Next</button>
+    <button id="download" type="button">Download my scores</button>
+  </div>
+  <script>
+    const total = 20;
+    const ratings = Array.from({length: total}, () => ({A: null, B: null}));
+    let index = 0;
+    const message = document.getElementById('message');
+    function pairId(i) { return `pair_${String(i + 1).padStart(2, '0')}`; }
+    function buildRating(side) {
+      const container = document.getElementById(`rating-${side.toLowerCase()}`);
+      for (let value = 1; value <= 5; value++) {
+        const label = document.createElement('label');
+        const radio = document.createElement('input');
+        radio.type = 'radio'; radio.name = `quality-${side}`; radio.value = String(value);
+        radio.addEventListener('change', () => { ratings[index][side] = value; message.textContent = ''; });
+        label.append(radio, ` ${value}`); container.append(label);
+      }
+    }
+    buildRating('A'); buildRating('B');
+    function show() {
+      const filename = `${pairId(index)}.png`;
+      document.getElementById('progress').textContent = `Pair ${index + 1} of ${total}`;
+      document.getElementById('pair-image').src = filename;
+      document.getElementById('image-link').href = filename;
+      for (const side of ['A', 'B']) {
+        for (const radio of document.querySelectorAll(`input[name="quality-${side}"]`)) {
+          radio.checked = Number(radio.value) === ratings[index][side];
+        }
+      }
+      document.getElementById('previous').disabled = index === 0;
+      document.getElementById('next').disabled = index === total - 1;
+      message.textContent = '';
+    }
+    document.getElementById('previous').onclick = () => { if (index > 0) { index--; show(); } };
+    document.getElementById('next').onclick = () => {
+      if (!ratings[index].A || !ratings[index].B) {
+        message.textContent = 'Please rate both A and B before moving on.'; return;
+      }
+      if (index < total - 1) { index++; show(); }
+    };
+    document.getElementById('download').onclick = () => {
+      const participant = document.getElementById('participant').value.trim();
+      if (!/^[A-Za-z0-9_-]{1,32}$/.test(participant)) {
+        message.textContent = 'Enter a participant ID using letters, numbers, _ or -.'; return;
+      }
+      if (ratings.some(r => !r.A || !r.B)) {
+        message.textContent = 'Rate A and B for all 20 pairs before downloading.'; return;
+      }
+      const lines = ['participant_id,pair_id,quality_A_1_to_5,quality_B_1_to_5'];
+      ratings.forEach((r, i) => lines.push(`${participant},${pairId(i)},${r.A},${r.B}`));
+      const blob = new Blob([lines.join('\r\n') + '\r\n'], {type: 'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url; link.download = `mos_scores_${participant}.csv`; link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      message.textContent = 'Score file downloaded. Please send it to the study organizer.';
+    };
+    show();
+  </script>
+</body>
+</html>

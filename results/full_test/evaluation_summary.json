@@ -1,0 +1,113 @@
+{
+  "protocol": "RGB uint8, 2-pixel border crop, x2 bicubic downscale/upscale",
+  "total_distinct_images": 125,
+  "overall": {
+    "bicubic_input": {
+      "images": 125,
+      "mean_psnr_rgb_db": 31.011884880865832,
+      "mean_ssim_rgb": 0.9039852560787278
+    },
+    "baseline_student": {
+      "images": 125,
+      "mean_psnr_rgb_db": 31.71941589989112,
+      "mean_ssim_rgb": 0.9177826551678346
+    },
+    "distilled_student": {
+      "images": 125,
+      "mean_psnr_rgb_db": 31.699039407099566,
+      "mean_ssim_rgb": 0.917482898667832
+    }
+  },
+  "by_category": {
+    "DIV2K/bicubic_input": {
+      "images": 100,
+      "mean_psnr_rgb_db": 31.03089969005657,
+      "mean_ssim_rgb": 0.9014409864817299
+    },
+    "DIV2K/baseline_student": {
+      "images": 100,
+      "mean_psnr_rgb_db": 31.72861895932567,
+      "mean_ssim_rgb": 0.9154664310404335
+    },
+    "DIV2K/distilled_student": {
+      "images": 100,
+      "mean_psnr_rgb_db": 31.708526186322068,
+      "mean_ssim_rgb": 0.9151828291165757
+    },
+    "animals/bicubic_input": {
+      "images": 5,
+      "mean_psnr_rgb_db": 37.16285145439244,
+      "mean_ssim_rgb": 0.9733121851395039
+    },
+    "animals/baseline_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 37.91524692486215,
+      "mean_ssim_rgb": 0.9770445327044118
+    },
+    "animals/distilled_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 37.89009407379455,
+      "mean_ssim_rgb": 0.9769459337218132
+    },
+    "games/bicubic_input": {
+      "images": 5,
+      "mean_psnr_rgb_db": 28.138475326429813,
+      "mean_ssim_rgb": 0.9024693822665035
+    },
+    "games/baseline_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 28.883267649577704,
+      "mean_ssim_rgb": 0.9173972980570305
+    },
+    "games/distilled_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 28.866677277206566,
+      "mean_ssim_rgb": 0.9170405255401646
+    },
+    "nature/bicubic_input": {
+      "images": 5,
+      "mean_psnr_rgb_db": 32.36197848117725,
+      "mean_ssim_rgb": 0.8883972388544208
+    },
+    "nature/baseline_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 32.91497102566013,
+      "mean_ssim_rgb": 0.9046597827670974
+    },
+    "nature/distilled_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 32.900483631561535,
+      "mean_ssim_rgb": 0.9043528013326922
+    },
+    "people/bicubic_input": {
+      "images": 5,
+      "mean_psnr_rgb_db": 28.428410043544908,
+      "mean_ssim_rgb": 0.8977596057583128
+    },
+    "people/baseline_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 29.199150606180034,
+      "mean_ssim_rgb": 0.9132862025864622
+    },
+    "people/distilled_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 29.175883597163384,
+      "mean_ssim_rgb": 0.9128531206005543
+    },
+    "text/bicubic_input": {
+      "images": 5,
+      "mean_psnr_rgb_db": 28.5874129149699,
+      "mean_ssim_rgb": 0.9088732603148582
+    },
+    "text/baseline_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 29.500382104484707,
+      "mean_ssim_rgb": 0.9228499422721932
+    },
+    "text/distilled_student": {
+      "images": 5,
+      "mean_psnr_rgb_db": 29.472322871321712,
+      "mean_ssim_rgb": 0.9222235031690611
+    }
+  }
+}

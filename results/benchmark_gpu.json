@@ -1,0 +1,23 @@
+{
+  "backend": "openvino",
+  "device": "GPU",
+  "input_and_output": "1920x1080 BGR uint8",
+  "batch_size": 1,
+  "warmup": 10,
+  "iterations": 50,
+  "engine_only": {
+    "mean_ms": 18.08701799978735,
+    "median_ms": 18.25404999544844,
+    "p95_ms": 20.28521499960334,
+    "fps_from_mean_latency": 55.288273612143094
+  },
+  "full_frame_processing": {
+    "mean_ms": 20.81952199994703,
+    "median_ms": 20.499850001215236,
+    "p95_ms": 23.56863000204612,
+    "fps_from_mean_latency": 48.031842421864646
+  },
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "note": "OpenVINO engine includes integrated color/layout/byte conversion. Single synchronous stream; excludes camera capture, display, and video encoding."
+}

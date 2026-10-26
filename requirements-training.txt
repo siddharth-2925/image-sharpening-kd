@@ -1,0 +1,7 @@
+torch>=2.2
+numpy>=1.24,<3
+Pillow>=10
+scikit-image>=0.22
+timm>=0.9,<1.1
+tqdm>=4.66
+

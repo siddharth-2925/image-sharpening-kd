@@ -1,0 +1,18 @@
+{
+  "participants": 10,
+  "distinct_pairs": 20,
+  "completed_pair_ratings": 200,
+  "scale": "1=very poor, 2=poor, 3=fair, 4=good, 5=excellent",
+  "methods": {
+    "student": {
+      "ratings": 200,
+      "mean_opinion_score": 3.735,
+      "sample_stdev": 0.6533831553833428
+    },
+    "input": {
+      "ratings": 200,
+      "mean_opinion_score": 3.765,
+      "sample_stdev": 0.6648194676926328
+    }
+  }
+}
